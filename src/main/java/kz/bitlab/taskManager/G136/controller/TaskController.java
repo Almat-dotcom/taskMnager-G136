@@ -26,6 +26,7 @@ public class TaskController {
                         @RequestParam(name = "name", required = false) String filterName) {
         List<Task> tasks = new ArrayList<>();
         List<Project> projects = new ArrayList<>();
+        //Новый код по задаче
 
         try {
             PreparedStatement preparedStatement = null;
