@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+<div layout:fragment="content">
+    <div class="row mt-3">
+        <div class="col-12">
+
+            <div class="row">
+                <div class="card col-5">
+                    <form method="post" th:action="@{'/delete-completed'}">
+                        <h4>Enter completed status</h4>
+                        <div class="form-floating me-3">
+                            <select name="isCompleted" class="form-select">
+                                <option th:value="true" selected>YES</option>
+                                <option th:value="false">NO</option>
+                            </select>
+                        </div>
+                        <button  class="btn btn-danger mt-2 mb-2" type="submit">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+                <div class="col-2"></div>
+                <div class="card col-5">
+                    <h4>Global change names</h4>
+                    <form method="post" class="d-flex" th:action="@{'/update-names'}">
+                        <div class="form-floating me-3">
+                            <input type="text" id="old_name" name="oldName" class="form-control" placeholder="old_name">
+                            <label for="old_name" class="form-label">Old Name</label>
+                        </div>
+                        <div class="form-floating me-3">
+                            <input type="text" id="new_name" name="newName" class="form-control" placeholder="new_name">
+                            <label class="form-label" for="new_name">New Name</label>
+                        </div>
+                        <button class="btn btn-success" type="submit">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <button type="button" class="btn mt-5" style="background-color: #2f8f9e; color: white"
+                    data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop">
+                + Add New Task
+            </button>
+
+            <table class="table mt-2">
+                <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">NAME</th>
+                    <th scope="col">DEADLINE DATE</th>
+                    <th scope="col">IS COMPLETED</th>
+                    <th scope="col">PROJECT</th>
+                    <th scope="col">DETAILS</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task: ${tasks}">
+                    <td th:text="${task.id}"></td>
+                    <td th:text="${task.name}"></td>
+                    <td th:text="${task.deadlineDate}"></td>
+                    <td th:text="${task.isCompleted()}"></td>
+                    <td th:text="${task.project.name}"></td>
+                    <td>
+                        <a th:href="@{'/task-view/'+${task.id}}" class="btn"
+                           style="background-color: #2f8f9e; color: white">DETAILS</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <form method="post" th:action="@{/add-task}">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                     tabindex="-1"
+                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="staticBackdropLabel">New Task</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">TASK NAME:</label>
+                                    <input type="text" name="name" class="form-control" placeholder="Task name...">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">TASK DESCRIPTION:</label>
+                                    <textarea class="form-control" name="description"
+                                              placeholder="Description..."></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">TASK DEADLINE DATE:</label>
+                                    <input type="date" name="date" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <select name="projectId" class="form-select">
+                                        <option th:each="pr:${projects}" th:value="${pr.id}" th:text="${pr.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn" style="background-color: #2f8f9e; color: white">Add
+                                    Task
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>

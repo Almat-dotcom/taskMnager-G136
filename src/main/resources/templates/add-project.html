@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout/main.html">
+
+<div layout:fragment="content">
+    <div class="row mt-4">
+        <div class="col-3"></div>
+        <div class="col-6">
+            <form method="post" th:action="@{/add-project}">
+                <div class="mb-3">
+                    <label class="form-label">PROJECT NAME:</label>
+                    <input type="text" name="name" class="form-control" placeholder="Project name...">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">PROJECT DESCRIPTION:</label>
+                    <textarea class="form-control" name="description"
+                              placeholder="Description..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="background-color: #2f8f9e; color: white">Add Project
+                </button>
+            </form>
+        </div>
+        <div class="col-3"></div>
+    </div>
+</div>
+</html>
