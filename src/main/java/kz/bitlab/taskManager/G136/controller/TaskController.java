@@ -28,6 +28,7 @@ public class TaskController {
         List<Project> projects = new ArrayList<>();
         //Новый код по задаче
         //Еще один код
+        //Еще один код
 
         try {
             PreparedStatement preparedStatement = null;
